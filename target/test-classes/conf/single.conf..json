@@ -1,0 +1,17 @@
+{
+	"server": "hub-cloud.browserstack.com",
+	"user": "nirtal3",
+	"key": "uQPztMmGdrvzqEcMy8br",
+	"capabilities": {
+		"browserstack.debug": true
+	},
+	"environments": {
+		"Firefox": {
+			"browser": "Firefox",
+			"browser_version": "57.0 beta",
+			"os": "Windows",
+			"os_version": "10",
+			"resolution": "1920x1200"
+		}
+	}
+}

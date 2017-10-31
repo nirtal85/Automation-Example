@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 17.657 s <<< FAILURE! - in TestSuite
+testEasy(testproject.testproject.AppTest)  Time elapsed: 0.375 s  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<"[nir]"> but was:<"[Demo Guru99 Page]">
+	at testproject.testproject.AppTest.testEasy(AppTest.java:43)
+
