@@ -18,7 +18,7 @@ public class AppTest extends BrowserStackTestNGTest {
 	@Severity(SeverityLevel.CRITICAL)
 	@Test
 	public void testEasy() {
-		assertThat(driver.getTitle()).isEqualTo("nir");
+		assertThat(driver.getTitle()).isEqualTo("nir1");
 	}
 
 	@BeforeClass
