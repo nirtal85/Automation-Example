@@ -1,16 +1,22 @@
 package testproject.testproject;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import utils.BrowserStackTestNGTest;
+import utils.BaseListener;
 
-public class AppTest extends BrowserStackTestNGTest {
+@Listeners({ BaseListener.class })
+public class AppTest {
 	WebDriver driver;
 
 	@Epic("Allure examples")
@@ -22,8 +28,14 @@ public class AppTest extends BrowserStackTestNGTest {
 	}
 
 	@BeforeClass
-	public void beforeTest() {
+	public void beforeClass() {
+		driver = new FirefoxDriver();
 		driver.get("http://demo.guru99.com/selenium/guru99home/");
+	}
+
+	@AfterClass
+	public void afterClass() {
+		driver.quit();
 	}
 
 }

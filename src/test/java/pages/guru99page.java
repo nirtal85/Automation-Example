@@ -15,5 +15,4 @@ public class guru99page {
 
 	@FindBy(id = "idOfYourElement")
 	WebElement myLocator;
-
 }

@@ -6,7 +6,7 @@
 	<!--><parameter name="environment" value="firefox" /> -->
 	<test name="SingleTest">
 		<classes>
-			<class name="testproject.testproject.AppTest2" />
+			<class name="testproject.testproject.TestRunner" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
