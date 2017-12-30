@@ -2,7 +2,6 @@ package utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;

@@ -3,8 +3,8 @@ package utils;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.TestNGCucumberRunner;
 import cucumber.api.testng.CucumberFeatureWrapper;
-
 import static com.codeborne.selenide.Selenide.open;
+
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -25,6 +25,7 @@ public class TestRunner {
 
 	@BeforeClass(alwaysRun = true)
 	public void setUpClass() throws Exception {
+		
 		Configuration.browser = "chrome";
 		open("http://demo.guru99.com/selenium/guru99home/");
 		testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
@@ -43,5 +44,6 @@ public class TestRunner {
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass() throws Exception {
 		testNGCucumberRunner.finish();
+		
 	}
 }

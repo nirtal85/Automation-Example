@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Single" parallel="none">
-	<parameter name="browser" value="firefox" />
-	<!-->parameter name="config" value="single.conf.json" /> -->
-	<!--><parameter name="environment" value="firefox" /> -->
+<suite name="Single" parallel="none" verbose="10">
 	<test name="SingleTest">
 		<classes>
-			<class name="testproject.testproject.TestRunner" />
+			<class name="testproject.testproject.AppTest3" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
