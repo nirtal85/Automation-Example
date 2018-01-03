@@ -8,13 +8,13 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
 
 import cucumber.api.java8.En;
-import pages.loginPage;
+import pages.LoginPage;
 
 public class Given implements En {
-	loginPage loginPage;
+	LoginPage loginPage;
 
 	public Given() throws Throwable {
-		loginPage loginPage = page(loginPage.class);
+		LoginPage loginPage = page(LoginPage.class);
 
 		Then("^the url is \"([^\"]*)\"$", (String url) -> assertThat(title()).isEqualTo(url));
 

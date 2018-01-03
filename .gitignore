@@ -1,3 +1,7 @@
-target/
-test-output/
-allure-results/
+target/*
+test-output/*
+allure-results/*
+video/*
+.vscode/*
+.settings/*
+build/*

@@ -15,7 +15,7 @@ import io.qameta.allure.Attachment;
 public class VideoRecord {
 
 	@Attachment(value = "video", type = "video/mp4")
-	public byte[] attachment() throws InterruptedException {
+	public static byte[] attachment() throws InterruptedException {
 		try {
 			File video = VideoRecorder.getLastRecording();
 			Awaitility.await().atMost(5, TimeUnit.SECONDS).pollDelay(1, TimeUnit.SECONDS).ignoreExceptions()

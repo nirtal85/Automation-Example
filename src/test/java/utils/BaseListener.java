@@ -6,7 +6,6 @@ import org.apache.commons.io.FileUtils;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
-
 import com.codeborne.selenide.Screenshots;
 
 import io.qameta.allure.Allure;

@@ -2,8 +2,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Single" parallel="none" verbose="10">
 	<test name="SingleTest">
+		<groups>
+			<run>
+				<include name="sanity" />
+			</run>
+		</groups>
 		<classes>
-			<class name="testproject.testproject.AppTest3" />
+			<class name="test.Selenide" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
