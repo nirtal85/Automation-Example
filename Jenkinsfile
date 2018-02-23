@@ -34,7 +34,9 @@ pipeline {
    ]
   }
   failure {
-   mail bcc: '', body: 'Please review the build on "dasdasdsa"', cc: '', from: 'nirt236@gmail.com', replyTo: '', subject: 'Jenkins build Status', to: 'nirt236@gmail.com'
+      mail to: 'nirt2236@gmail.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_URL}"  
   }
  }
 }
