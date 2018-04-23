@@ -56,11 +56,11 @@ public class Selenide extends BaseTest {
 
 	@Step
 	public void testEasy1() {
-		System.out.println(1 + 1);
+		System.out.println(2 + 1);
 	}
 
 	@Step
 	public void testEasy2() {
-		System.out.println(1 + 1);
+		System.out.println(2 + 1);
 	}
 }
