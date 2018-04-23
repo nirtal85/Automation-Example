@@ -1,7 +1,10 @@
 target/*
 test-output/*
 allure-results/*
+allure-report/*
 video/*
 .vscode/*
 .settings/*
 build/*
+.metadata
+.idea

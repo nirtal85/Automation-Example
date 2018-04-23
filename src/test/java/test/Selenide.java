@@ -19,12 +19,16 @@ import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import pages.LoginPage;
 import utils.BaseListener;
+import utils.FakeData;
 
 @Guice
 @Listeners({ BaseListener.class, VideoListener.class })
 public class Selenide extends BaseTest {
 	@Inject
 	LoginPage loginPage;
+	@Inject
+    FakeData fakeData;
+
 
 	@Epic("Allure examples")
 	@Feature("Testng support")
@@ -35,7 +39,7 @@ public class Selenide extends BaseTest {
 		open("");
 		testEasy1();
 		testEasy2();
-		assertThat(title()).isEqualTo("nir");
+		assertThat(title()).isEqualTo(fakeData.faker.name().firstName());
 	}
 
 	@Epic("Allure examples")
