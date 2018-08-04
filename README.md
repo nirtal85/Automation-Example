@@ -1,11 +1,7 @@
 # Automation Example
 The project contains:
 1. testng as a testing framwork -  http://testng.org/doc/
-2. selenide - as an automation framwork >> for more info: http://selenide.org/
-3. selenium webdriver  - as an automation framwork >> for more info: http://www.seleniumhq.org/
-4. cucmber as a testing framwork >> for more info: https://cucumber.io/docs/reference/jvm
-
-the client can choose from the option above how to procced with his tests.
+2. selenium webdriver  - as an automation framwork >> for more info: http://www.seleniumhq.org/
 
 How to run the project:
 1. git clone

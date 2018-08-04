@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<build>
@@ -27,11 +28,6 @@
 					</argLine>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>io.qameta.allure</groupId>
-				<artifactId>allure-maven</artifactId>
-				<version>2.9</version>
-			</plugin>
 		</plugins>
 	</build>
 	<groupId>testproject</groupId>
@@ -54,20 +50,12 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
-
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.8.0</version>
+			<version>3.10.0</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-testng -->
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -78,26 +66,13 @@
 		<dependency>
 			<groupId>io.qameta.allure</groupId>
 			<artifactId>allure-testng</artifactId>
-			<version>2.0-BETA19</version>
+			<version>2.6.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.codeborne/selenide -->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
 		<dependency>
-			<groupId>com.codeborne</groupId>
-			<artifactId>selenide</artifactId>
-			<version>4.11.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-testng -->
-		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java8 -->
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java8</artifactId>
-			<version>1.2.5</version>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.14.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -124,14 +99,7 @@
 			<artifactId>awaitility</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/net.lightbody.bmp/browsermob-proxy -->
-		<dependency>
-			<groupId>net.lightbody.bmp</groupId>
-			<artifactId>browsermob-core</artifactId>
-			<version>2.1.5</version>
-			<scope>test</scope>
-		</dependency>
-	<!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
+		<!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
