@@ -24,6 +24,8 @@ target/
 *.war
 *.ear
 *.class
+/bin
+*.log
 
 # Test
 test-output/*

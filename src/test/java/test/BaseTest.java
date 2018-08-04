@@ -1,29 +1,49 @@
 package test;
 
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
-import com.codeborne.selenide.Configuration;
-
-import io.qameta.allure.Description;
 import utils.VideoRecord;
 
 public class BaseTest {
-	
-	@BeforeSuite(groups = { "sanity" })
-	@Description("start")
-	public void beforeTest() {
-		Configuration.startMaximized = false;
-		Configuration.screenshots = false;
-		Configuration.driverManagerEnabled = true;
-		Configuration.fastSetValue = true;
-		Configuration.savePageSource = false;
-		Configuration.baseUrl = "http://demo.guru99.com/selenium/guru99home/";
+	public WebDriver driver;
+
+	@Parameters({ "baseUrl" })
+	@BeforeClass(alwaysRun = true)
+	public void beforeClass(String baseUrl) throws Exception {
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.navigate().to(baseUrl);
 	}
 
-	@AfterMethod(groups = { "sanity" })
-	public void aa() throws Exception {
+	@Parameters({ "baseUrl" })
+	@AfterMethod
+	public void cleanUp(String baseUrl) {
+		driver.manage().deleteAllCookies();
+		if (!driver.getCurrentUrl().equals(baseUrl)) {
+			driver.navigate().to(baseUrl);
+			driver.navigate().refresh();
+		}
+	}
+
+	@AfterClass(alwaysRun = true)
+	public void afterClass() throws Exception {
+		driver.quit();
+	}
+
+	public WebDriver getDriver() {
+		return driver;
+	}
+
+	@AfterMethod
+	public void addVideo() throws Exception {
 		VideoRecord.attachment();
 	}
-
 }

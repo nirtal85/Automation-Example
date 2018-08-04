@@ -1,27 +1,40 @@
 package pages;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.page;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.SelenideElement;
-import com.google.inject.Inject;
+import io.qameta.allure.Step;
 
 public class LoginPage {
+	public WebDriver driver;
 
-	@Inject
-	public LoginPage() {
-		Configuration.browser = "chrome";
-		page(this);
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
-	private SelenideElement email = $("input[name='email']");
-	private SelenideElement submit = $("button[type='submit']");
-	private SelenideElement password = $("#password");
+	@FindBy(id = "username")
+	private WebElement userName;
 
-	public void login(String useremail, String userpassword) {
-		email.sendKeys(useremail);
-		password.sendKeys(userpassword);
-		submit.pressEnter();
+	@FindBy(id = "password")
+	private WebElement userPassword;
+
+	@FindBy(id = "flash")
+	private WebElement errorMsg;
+	
+	public String getErrorMsg() {
+		return errorMsg.getText();
+	}
+
+	@Step("Login with user name {0} and password {1}")
+	public void login(String name, String password) {
+		userName.clear();
+		userPassword.clear();
+		userName.sendKeys(name);
+		userPassword.sendKeys(password);
+		userPassword.sendKeys(Keys.ENTER);
 	}
 }
