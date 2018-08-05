@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 import com.automation.remarks.testng.VideoListener;
 import com.automation.remarks.video.annotations.Video;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import io.qameta.allure.Issue;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import pages.LoginPage;
@@ -19,10 +21,10 @@ import utils.BaseListener;
 @Listeners({ BaseListener.class, VideoListener.class })
 public class LoginTest extends BaseTest {
 
-
 	@Video
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
+	@Description("Test Description: Login test with wrong username and wrong password")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true)
 	public void invalidLogin() throws Exception {
 		LoginPage loginPage = new LoginPage(driver);
@@ -30,6 +32,7 @@ public class LoginTest extends BaseTest {
 		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
 	}
 	
+	@Issue("1")
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
 	@Video
