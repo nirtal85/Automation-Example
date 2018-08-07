@@ -48,7 +48,7 @@ public class LoginTest extends BaseTest {
 	@Epic("Login")
 	@Video
 	@Severity(SeverityLevel.CRITICAL)
-	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true)
+	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true, retryAnalyzer = utils.RetryAnalyzer.class)
 	public void unauthorizedLogin(String baseUrl) throws Exception {
 		driver.navigate().to(baseUrl+"/secure");
 		assertThat(driver.getCurrentUrl()).endsWith("/login");
