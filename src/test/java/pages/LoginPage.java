@@ -30,11 +30,12 @@ public class LoginPage {
 	}
 
 	@Step("Login with user name {0} and password {1}")
-	public void login(String name, String password) {
+	public LoginPage login(String name, String password) {
 		userName.clear();
 		userPassword.clear();
 		userName.sendKeys(name);
 		userPassword.sendKeys(password);
 		userPassword.sendKeys(Keys.ENTER);
+		return this;
 	}
 }

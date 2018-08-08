@@ -9,18 +9,22 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import utils.Data;
 import utils.VideoRecord;
 
 public class BaseTest {
 	public WebDriver driver;
+	public Data data;
 
-	@Parameters({ "baseUrl" })
+	@Parameters({ "baseUrl", "data-file" })
 	@BeforeClass(alwaysRun = true)
-	public void beforeClass(String baseUrl) throws Exception {
+	public void beforeClass(String baseUrl, String dataFile) throws Exception {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.navigate().to(baseUrl);
+	    data = Data.get(dataFile);
+
 	}
 
 	@Parameters({ "baseUrl" })

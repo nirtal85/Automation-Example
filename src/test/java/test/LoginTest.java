@@ -32,7 +32,7 @@ public class LoginTest extends BaseTest {
 		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
 	}
 	
-	@Issue("1")
+//	@Issue("1")
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
 	@Video
@@ -40,7 +40,7 @@ public class LoginTest extends BaseTest {
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login("tomsmith", "SuperSecretPassword!");
+		loginPage.login(data.getName(), data.getPassword());
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl+"/secure");
 	}
 	
