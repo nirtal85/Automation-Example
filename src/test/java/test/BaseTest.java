@@ -9,8 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import utils.AllureAttachment;
 import utils.Data;
-import utils.VideoRecord;
 
 public class BaseTest {
 	public WebDriver driver;
@@ -48,6 +48,6 @@ public class BaseTest {
 
 	@AfterMethod
 	public void addVideo() throws Exception {
-		VideoRecord.attachment();
+		AllureAttachment.addVideoAttachment();
 	}
 }
