@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import domain.User;
 import io.qameta.allure.Step;
 
 public class LoginPage {
@@ -30,11 +31,11 @@ public class LoginPage {
 	}
 
 	@Step("Login with user name {0} and password {1}")
-	public LoginPage login(String name, String password) {
+	public LoginPage login(User user) {
 		userName.clear();
 		userPassword.clear();
-		userName.sendKeys(name);
-		userPassword.sendKeys(password);
+		userName.sendKeys(user.getName());
+		userPassword.sendKeys(user.getPassword());
 		userPassword.sendKeys(Keys.ENTER);
 		return this;
 	}

@@ -23,7 +23,7 @@ public class BaseTest {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.navigate().to(baseUrl);
-	    data = Data.get(dataFile);
+		data = Data.get(dataFile);
 
 	}
 

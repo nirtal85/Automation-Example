@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.automation.remarks.testng.VideoListener;
 import com.automation.remarks.video.annotations.Video;
 
+import domain.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Issue;
@@ -27,8 +28,9 @@ public class LoginTest extends BaseTest {
 	@Description("Test Description: Login test with wrong username and wrong password")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true)
 	public void invalidLogin() throws Exception {
+		User invalidUser = new User("nir@test.com", "blahblah");
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login("nir@test.com", "blahblah");
+		loginPage.login(invalidUser);
 		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
 	}
 	
@@ -39,8 +41,9 @@ public class LoginTest extends BaseTest {
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
+		User validUser = new User(data.getName(), data.getPassword());
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login(data.getName(), data.getPassword());
+		loginPage.login(validUser);
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl+"/secure");
 	}
 	

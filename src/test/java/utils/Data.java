@@ -8,20 +8,17 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.Getter;
+
 public class Data {
+
+	@Getter
 	@JsonProperty("name")
 	String name;
 
+	@Getter
 	@JsonProperty("password")
 	String password;
-
-	public String getName() {
-		return name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
 
 	public static Data get(String filename) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
