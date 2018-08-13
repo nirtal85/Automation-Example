@@ -33,9 +33,10 @@ public class LoginTest extends BaseTest {
 	@Description("Test Description: Login test with wrong username and wrong password")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true)
 	public void invalidLogin() throws Exception {
-		User invalidUser = new User(faker.internet().emailAddress(), faker.internet().password());
+		User invalidUser = new User.Builder().setName(faker.internet().emailAddress())
+				.setPassword(faker.internet().password()).create();
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login(invalidUser);
+		loginPage.loginAs(invalidUser);
 		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
 	}
 
@@ -46,9 +47,9 @@ public class LoginTest extends BaseTest {
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
-		User validUser = new User(data.getName(), data.getPassword());
+		User validUser = new User.Builder().setName(data.getName()).setPassword(data.getPassword()).create();
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.login(validUser);
+		loginPage.loginAs(validUser);
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + "/secure");
 	}
 

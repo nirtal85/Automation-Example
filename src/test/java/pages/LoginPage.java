@@ -31,7 +31,7 @@ public class LoginPage {
 	}
 
 	@Step("Login with user name {0} and password {1}")
-	public LoginPage login(User user) {
+	public LoginPage loginAs(User user) {
 		userName.clear();
 		userPassword.clear();
 		userName.sendKeys(user.getName());

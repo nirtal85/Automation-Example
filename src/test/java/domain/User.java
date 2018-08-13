@@ -1,14 +1,30 @@
+
 package domain;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
 public class User {
-	String name;
-	String password;
+	private String name;
+	private String password;
 
-	public User(String name, String password) {
-		this.name = name;
-		this.password = password;
+	@Data
+	public static class Builder {
+		@Accessors(chain = true)
+		private String name;
+		@Accessors(chain = true)
+		private String password;
+
+		public User create() {
+			User user = new User();
+			user.name = this.name;
+			user.password = this.password;
+			return user;
+		}
+	}
+
+	private User() {
+		// Constructor is now private.
 	}
 }
