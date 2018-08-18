@@ -5,19 +5,21 @@ pipeline {
    customWorkspace "C:/Users/User/eclipse-workspace/AutomationExample"
   }
  }
-options {
+ options {
   timestamps()
   buildDiscarder(logRotator(numToKeepStr: '3'))
  }
  stages {
   stage('SCM') {
    steps {
-       git url: 'https://github.com/nirtal85/AutomationExample.git'
+    git url: 'https://github.com/nirtal85/AutomationExample.git'
    }
   }
-  stage('Run Tests') {
+  stage('SonarQube analysis && Run Tests') {
    steps {
-    bat '''mvn clean test'''
+    withSonarQubeEnv('Sonar') {
+     bat 'mvn sonar:sonar clean test'
+    }
    }
   }
  }
@@ -28,11 +30,11 @@ options {
    ]
   }
   failure {
-          emailext(
-          body: "Something is wrong with ${env.BUILD_URL}",
-          subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-          to: "${params.email}"
-          )
+   emailext(
+    body: "Something is wrong with ${env.BUILD_URL}",
+    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+    to: "${params.email}"
+   )
   }
  }
 }
