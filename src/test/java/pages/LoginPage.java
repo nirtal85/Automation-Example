@@ -30,7 +30,7 @@ public class LoginPage {
 		return errorMsg.getText();
 	}
 
-	@Step("Login with user name {0} and password {1}")
+	@Step("Login with user {0}")
 	public LoginPage loginAs(User user) {
 		userName.clear();
 		userPassword.clear();

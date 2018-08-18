@@ -5,20 +5,14 @@ pipeline {
    customWorkspace "C:/Users/User/eclipse-workspace/AutomationExample"
   }
  }
+options {
+  timestamps()
+  buildDiscarder(logRotator(numToKeepStr: '3'))
+ }
  stages {
-  stage('Checkout') {
+  stage('SCM') {
    steps {
-    checkout([$class: 'GitSCM',
-     branches: [
-      [name: 'master']
-     ],
-     doGenerateSubmoduleConfigurations: false,
-     userRemoteConfigs: [
-      [credentialsId: '3ba8dc10-95a7-4f0d-85fd-3c5a9ab0a15b',
-       url: 'https://github.com/nirtal85/AutomationExample.git'
-      ]
-     ]
-    ])
+       git url: 'https://github.com/nirtal85/AutomationExample.git'
    }
   }
   stage('Run Tests') {
