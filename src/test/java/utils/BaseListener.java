@@ -10,7 +10,6 @@ import io.qameta.allure.Issue;
 
 public class BaseListener implements IInvokedMethodListener {
 
-
 	@Override
 	public void beforeInvocation(IInvokedMethod invokedMethod, ITestResult result) {
 		Method method = result.getMethod().getConstructorOrMethod().getMethod();
@@ -29,8 +28,6 @@ public class BaseListener implements IInvokedMethodListener {
 		if (method.isTestMethod() && !testResult.isSuccess()) {
 			AllureAttachment allureAttachment = new AllureAttachment();
 			allureAttachment.addScreenshotAttachment(testResult);
-			AllureAttachment.addTextAttachment("Test");
-
 		}
 	}
 

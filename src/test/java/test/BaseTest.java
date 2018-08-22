@@ -1,28 +1,29 @@
 package test;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import driver.DriverManager;
+import driver.DriverManagerFactory;
+import driver.DriverType;
 import utils.AllureAttachment;
 import utils.Data;
 
 public class BaseTest {
 	public WebDriver driver;
+    DriverManager driverManager;
+
 	public Data data;
 
 	@Parameters({ "baseUrl", "data-file" })
 	@BeforeClass(alwaysRun = true)
 	public void beforeClass(String baseUrl, String dataFile) throws Exception {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.navigate().to(baseUrl);
+        driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
+        driver = driverManager.getDriver();
+        driver.navigate().to(baseUrl);
 		data = Data.get(dataFile);
 
 	}
@@ -39,7 +40,7 @@ public class BaseTest {
 
 	@AfterClass(alwaysRun = true)
 	public void afterClass() throws Exception {
-		driver.quit();
+        driverManager.quitDriver();
 	}
 
 	public WebDriver getDriver() {
