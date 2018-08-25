@@ -21,7 +21,7 @@
 				<inherited>true</inherited>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
+						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
 					</suiteXmlFiles>
 					<argLine>
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -88,11 +88,6 @@
 			<groupId>com.sikulix</groupId>
 			<artifactId>sikulixapi</artifactId>
 			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.automation-remarks</groupId>
-			<artifactId>video-recorder-testng</artifactId>
-			<version>LATEST</version>
 		</dependency>
 		<dependency>
 			<groupId>org.awaitility</groupId>

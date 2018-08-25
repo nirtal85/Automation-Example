@@ -7,8 +7,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.automation.remarks.testng.VideoListener;
-import com.automation.remarks.video.annotations.Video;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 
@@ -22,12 +20,11 @@ import pages.LoginPage;
 import utils.BaseListener;
 
 @Guice
-@Listeners({ BaseListener.class, VideoListener.class })
+@Listeners({ BaseListener.class})
 public class LoginTest extends BaseTest {
 	@Inject
 	Faker faker;
 
-	@Video
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
 	@Description("Test Description: Login test with wrong username and wrong password")
@@ -43,7 +40,6 @@ public class LoginTest extends BaseTest {
 //	@Issue("1")
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
-	@Video
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
@@ -55,7 +51,6 @@ public class LoginTest extends BaseTest {
 
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
-	@Video
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true, retryAnalyzer = utils.RetryAnalyzer.class)
 	public void unauthorizedLogin(String baseUrl) throws Exception {

@@ -18,7 +18,7 @@ pipeline {
   stage('SonarQube analysis && Run Tests') {
    steps {
     withSonarQubeEnv('Sonar') {
-     bat 'mvn sonar:sonar clean test'
+     bat 'mvn sonar:sonar clean test -DsuiteXmlFile=testng.xml'
     }
    }
   }

@@ -9,7 +9,6 @@ import org.testng.annotations.Parameters;
 import driver.DriverManager;
 import driver.DriverManagerFactory;
 import driver.DriverType;
-import utils.AllureAttachment;
 import utils.Data;
 
 public class BaseTest {
@@ -45,10 +44,5 @@ public class BaseTest {
 
 	public WebDriver getDriver() {
 		return driver;
-	}
-
-	@AfterMethod
-	public void addVideo() throws Exception {
-		AllureAttachment.addVideoAttachment();
 	}
 }
