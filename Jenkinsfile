@@ -15,11 +15,18 @@ pipeline {
     git url: 'https://github.com/nirtal85/AutomationExample.git'
    }
   }
-  stage('SonarQube analysis && Run Tests') {
+  stage("Quality Gate") {
    steps {
     withSonarQubeEnv('Sonar') {
      bat 'mvn sonar:sonar'
     }
+    timeout(time: 1, unit: 'HOURS') {
+     waitForQualityGate true
+    }
+   }
+  }
+  stage('Test') {
+   steps {
     withMaven(jdk: 'Local JDK', maven: 'Local Maven') {
      bat 'mvn clean install test -DsuiteXmlFile=testng.xml'
     }
