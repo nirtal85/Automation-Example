@@ -18,7 +18,10 @@ pipeline {
   stage('SonarQube analysis && Run Tests') {
    steps {
     withSonarQubeEnv('Sonar') {
-     bat 'mvn sonar:sonar clean test -DsuiteXmlFile=testng.xml'
+     bat 'mvn sonar:sonar'
+    }
+    withMaven(jdk: 'Local JDK', maven: 'Local Maven') {
+     bat 'mvn clean install test -DsuiteXmlFile=testng.xml'
     }
    }
   }
