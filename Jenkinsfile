@@ -8,6 +8,10 @@ pipeline {
  options {
   timestamps()
   buildDiscarder(logRotator(numToKeepStr: '3'))
+  timeout(time: 1, unit: 'HOURS')
+ }
+ parameters {
+  string(name: 'email', defaultValue: 'nirt236@gmail.com', description: 'Send email on fauilre to')
  }
  stages {
   stage('SCM') {
