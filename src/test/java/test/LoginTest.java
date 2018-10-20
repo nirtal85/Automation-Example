@@ -7,9 +7,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.github.javafaker.Faker;
-import com.google.inject.Inject;
-
 import domain.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -18,20 +15,18 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import pages.LoginPage;
 import utils.BaseListener;
+import utils.DataProviders;
 
 @Guice
-@Listeners({ BaseListener.class})
+@Listeners({ BaseListener.class })
 public class LoginTest extends BaseTest {
-	@Inject
-	Faker faker;
 
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
-	@Description("Test Description: Login test with wrong username and wrong password")
-	@Test(description = "Invalid Login", groups = "Sanity", enabled = true)
-	public void invalidLogin() throws Exception {
-		User invalidUser = new User.Builder().setName(faker.internet().emailAddress())
-				.setPassword(faker.internet().password()).create();
+	@Description("Login with wrong username and wrong password - expect error")
+	@Test(description = "Invalid Login", groups = "Sanity", enabled = true, dataProvider = "users", dataProviderClass = DataProviders.class, invocationCount = 10)
+	public void invalidLogin(String email, String password) throws Exception {
+		User invalidUser = new User.Builder().setName(email).setPassword(password).create();
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.loginAs(invalidUser);
 		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
@@ -41,6 +36,7 @@ public class LoginTest extends BaseTest {
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
+	@Description("Login with valid user")
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
 		User validUser = new User.Builder().setName(data.getName()).setPassword(data.getPassword()).create();
@@ -52,7 +48,8 @@ public class LoginTest extends BaseTest {
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
-	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true, retryAnalyzer = utils.RetryAnalyzer.class)
+	@Description("navigate directly to the secure page")
+	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true)
 	public void unauthorizedLogin(String baseUrl) throws Exception {
 		driver.navigate().to(baseUrl + "/secure");
 		assertThat(driver.getCurrentUrl()).endsWith("/login");
