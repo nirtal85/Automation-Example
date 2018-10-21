@@ -16,6 +16,7 @@ pipeline {
  stages {
   stage('SCM') {
    steps {
+    slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")   
     git url: 'https://github.com/nirtal85/AutomationExample.git'
    }
   }
@@ -43,12 +44,16 @@ pipeline {
     [path: '/allure-results']
    ]
   }
+  success{
+    slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+  }
   failure {
    emailext(
     body: "Something is wrong with ${env.BUILD_URL}",
     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
     to: "${params.email}"
    )
+     slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
   }
  }
 }
