@@ -45,6 +45,7 @@ public class LoginTest extends BaseTest {
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + "/secure");
 	}
 
+	// TODO: example for task scanner
 	@Parameters({ "baseUrl" })
 	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)

@@ -18,6 +18,8 @@ pipeline {
    steps {
     slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")   
     git url: 'https://github.com/nirtal85/AutomationExample.git'
+   // jenkins task scanner - looks for FIXME and TODO tasks
+    openTasks canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', high: 'FIXME', ignoreCase: true, low: '', normal: 'TODO', pattern: '**/*.java', unHealthy: ''
    }
   }
   stage("Quality Gate") {
