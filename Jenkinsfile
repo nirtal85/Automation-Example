@@ -16,9 +16,9 @@ pipeline {
  stages {
   stage('SCM') {
    steps {
-    slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")   
+    slackSend(color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     git url: 'https://github.com/nirtal85/AutomationExample.git'
-   // jenkins task scanner - looks for FIXME and TODO tasks
+    // jenkins task scanner - looks for FIXME and TODO tasks
     openTasks canComputeNew: false, defaultEncoding: '', excludePattern: '', healthy: '', high: 'FIXME', ignoreCase: true, low: '', normal: 'TODO', pattern: '**/*.java', unHealthy: ''
    }
   }
@@ -46,8 +46,8 @@ pipeline {
     [path: '/allure-results']
    ]
   }
-  success{
-    slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+  success {
+   slackSend(color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
   }
   failure {
    emailext(
@@ -55,7 +55,12 @@ pipeline {
     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
     to: "${params.email}"
    )
-     slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+   slackSend(color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+  }
+  cleanup {
+   dir('allure-results') {
+    deleteDir() /* clean up allure report for next run */
+   }
   }
  }
 }
