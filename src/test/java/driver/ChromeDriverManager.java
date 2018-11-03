@@ -14,7 +14,7 @@ public class ChromeDriverManager extends DriverManager {
 	protected void createDriver() throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
-		capabilities.setVersion("68.0");
+		capabilities.setVersion("70.0");
 		capabilities.setCapability("enableVNC", true);
 		capabilities.setCapability("enableVideo", true);
 		driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), capabilities);

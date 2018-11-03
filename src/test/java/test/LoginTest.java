@@ -18,7 +18,6 @@ import utils.BaseListener;
 import utils.DataProviders;
 
 @Guice
-@Listeners({ BaseListener.class })
 public class LoginTest extends BaseTest {
 
 	@Epic("Login")

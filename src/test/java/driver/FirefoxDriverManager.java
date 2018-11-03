@@ -13,7 +13,7 @@ public class FirefoxDriverManager extends DriverManager {
 	protected void createDriver() throws MalformedURLException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("firefox");
-		capabilities.setVersion("60.0");
+		capabilities.setVersion("63.0");
 		capabilities.setCapability("enableVNC", true);
 		capabilities.setCapability("enableVideo", true);
 		driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), capabilities);

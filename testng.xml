@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="sanity" parallel="none" verbose="10">
+	<listeners>
+		<listener class-name="utils.BaseListener"></listener>
+	</listeners>
 	<parameter name="baseUrl"
 		value="http://the-internet.herokuapp.com/login" />
 	<parameter name="data-file"
