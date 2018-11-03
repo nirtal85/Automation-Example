@@ -3,18 +3,15 @@ package test;
 import static org.assertj.core.api.Assertions.*;
 
 import org.testng.annotations.Guice;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import domain.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
-import io.qameta.allure.Issue;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import pages.LoginPage;
-import utils.BaseListener;
 import utils.DataProviders;
 
 @Guice
