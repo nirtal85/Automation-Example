@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>testproject</groupId>
 	<artifactId>testproject</artifactId>
-    <version>1.0.0</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>testproject</name>
 	<url>https://github.com/nirtal85/Automation-Example</url>
@@ -112,7 +112,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
-				<inherited>true</inherited>
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
@@ -120,6 +119,9 @@
 					<argLine>
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
+					<systemPropertyVariables>
+						<enableVideo>$(enableVideo)</enableVideo>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 		</plugins>

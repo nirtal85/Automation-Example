@@ -15,7 +15,9 @@ public class ChromeDriverManager extends DriverManager {
 		capabilities.setBrowserName("chrome");
 		capabilities.setVersion("70.0");
 		capabilities.setCapability("enableVNC", true);
-		capabilities.setCapability("enableVideo", true);
+		if ("true".equals(System.getProperty("enableVideo"))) {
+			capabilities.setCapability("enableVideo", true);
+		}
 		driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}

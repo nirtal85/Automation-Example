@@ -1,10 +1,5 @@
 pipeline {
- agent {
-  label {
-   label ""
-   customWorkspace "C:/Users/User/eclipse-workspace/AutomationExample"
-  }
- }
+ agent any
  options {
   timestamps()
   buildDiscarder(logRotator(numToKeepStr: '3'))
@@ -27,7 +22,7 @@ pipeline {
     withSonarQubeEnv('Sonar') {
      bat 'mvn sonar:sonar'
     }
-    timeout(time: 1, unit: 'HOURS') {
+    timeout(time: 5, unit: 'MINUTES') {
      waitForQualityGate true
     }
    }
@@ -35,7 +30,7 @@ pipeline {
   stage('Test') {
    steps {
     withMaven(jdk: 'Local JDK', maven: 'Local Maven') {
-     bat 'mvn clean install test -DsuiteXmlFile=testng.xml'
+     bat 'mvn clean install test -DsuiteXmlFile=testng.xml -DenableVideo=true'
     }
    }
   }

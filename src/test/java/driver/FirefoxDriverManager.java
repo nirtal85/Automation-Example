@@ -15,7 +15,9 @@ public class FirefoxDriverManager extends DriverManager {
 		capabilities.setBrowserName("firefox");
 		capabilities.setVersion("63.0");
 		capabilities.setCapability("enableVNC", true);
-		capabilities.setCapability("enableVideo", true);
+		if ("true".equals(System.getProperty("enableVideo"))) {
+			capabilities.setCapability("enableVideo", true);
+		}
 		driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), capabilities);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
