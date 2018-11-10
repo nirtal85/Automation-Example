@@ -15,9 +15,10 @@ import pages.LoginPage;
 import utils.DataProviders;
 
 @Guice
+
+@Epic("Login")
 public class LoginTest extends BaseTest {
 
-	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
 	@Description("Login with wrong username and wrong password - expect error")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true, dataProvider = "users", dataProviderClass = DataProviders.class, invocationCount = 10)
@@ -30,7 +31,6 @@ public class LoginTest extends BaseTest {
 
 //	@Issue("1")
 	@Parameters({ "baseUrl" })
-	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
 	@Description("Login with valid user")
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
@@ -43,7 +43,6 @@ public class LoginTest extends BaseTest {
 
 	// TODO: example for task scanner
 	@Parameters({ "baseUrl" })
-	@Epic("Login")
 	@Severity(SeverityLevel.CRITICAL)
 	@Description("navigate directly to the secure page")
 	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true)
