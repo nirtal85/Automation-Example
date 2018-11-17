@@ -1,4 +1,7 @@
 {
    "name":"tomsmith",
-   "password":"SuperSecretPassword!"
+   "password":"SuperSecretPassword!",
+     "errors": {
+        "invalidLogin": "Your username is invalid!"
+    } 
 }

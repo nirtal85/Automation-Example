@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -11,14 +12,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 public class Data {
+	@Getter
+	private String name;
+	@Getter
+	private String password;
 
 	@Getter
-	@JsonProperty("name")
-	String name;
+	private String loginError;
 
-	@Getter
-	@JsonProperty("password")
-	String password;
+	@JsonProperty("errors")
+	private void unpackNested(Map<String, Object> errors) {
+		this.loginError = (String) errors.get("invalidLogin");
+	}
 
 	public static Data get(String filename) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();

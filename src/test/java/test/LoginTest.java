@@ -26,7 +26,7 @@ public class LoginTest extends BaseTest {
 		User invalidUser = new User.Builder().setName(email).setPassword(password).create();
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.loginAs(invalidUser);
-		assertThat(loginPage.getErrorMsg()).contains("Your username is invalid!");
+		assertThat(loginPage.getErrorMsg()).contains(data.getLoginError());
 	}
 
 //	@Issue("1")
