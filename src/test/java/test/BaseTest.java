@@ -22,25 +22,25 @@ public class BaseTest {
 
 	@Parameters({ "data-file" })
 	@BeforeClass
-	public void beforeSuite(String dataFile) throws Exception {
+	public void beforeClass(String dataFile) throws Exception {
 		data = Data.get(dataFile);
 	}
 
 	@Parameters({ "baseUrl" })
 	@BeforeMethod(alwaysRun = true)
-	public void beforeClass(String baseUrl, ITestContext context) throws Exception {
+	public void beforeMethod(String baseUrl, ITestContext context) throws Exception {
 		driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
 		driver = driverManager.getDriver(context);
 		driver.navigate().to(baseUrl);
 	}
 
 	@AfterMethod(alwaysRun = true)
-	public void cleanUp(ITestResult testResult, ITestContext context) {
+	public void afterMethod(ITestResult testResult, ITestContext context) {
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			allureAttachment = new AllureAttachment();
 			sessionId = allureAttachment.getSessionId(testResult, context);
 		}
-
+		
 		driverManager.quitDriver();
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			allureAttachment.attachAllureVideo(sessionId, context);
