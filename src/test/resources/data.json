@@ -3,5 +3,6 @@
    "password":"SuperSecretPassword!",
      "errors": {
         "invalidLogin": "Your username is invalid!"
-    } 
+    },
+    "gridURL": "http://127.0.0.1:4444" 
 }

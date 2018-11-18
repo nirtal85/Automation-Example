@@ -1,6 +1,7 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -17,6 +18,7 @@ public class BaseTest {
 	DriverManager driverManager;
 	public Data data;
 	String sessionId;
+	AllureAttachment allureAttachment;
 
 	@Parameters({ "data-file" })
 	@BeforeClass
@@ -26,22 +28,22 @@ public class BaseTest {
 
 	@Parameters({ "baseUrl" })
 	@BeforeMethod(alwaysRun = true)
-	public void beforeClass(String baseUrl) throws Exception {
+	public void beforeClass(String baseUrl, ITestContext context) throws Exception {
 		driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
-		driver = driverManager.getDriver();
+		driver = driverManager.getDriver(context);
 		driver.navigate().to(baseUrl);
 	}
 
 	@AfterMethod(alwaysRun = true)
-	public void cleanUp(ITestResult testResult) {
+	public void cleanUp(ITestResult testResult, ITestContext context) {
 		if ("true".equals(System.getProperty("enableVideo"))) {
-			AllureAttachment allureAttachment = new AllureAttachment();
-			sessionId = allureAttachment.getSessionId(testResult);
+			allureAttachment = new AllureAttachment();
+			sessionId = allureAttachment.getSessionId(testResult, context);
 		}
 
 		driverManager.quitDriver();
 		if ("true".equals(System.getProperty("enableVideo"))) {
-			AllureAttachment.attachAllureVideo(sessionId);
+			allureAttachment.attachAllureVideo(sessionId, context);
 		}
 	}
 

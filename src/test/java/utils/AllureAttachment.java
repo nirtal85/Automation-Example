@@ -11,8 +11,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.common.io.Files;
 
 import io.qameta.allure.Allure;
@@ -20,8 +23,13 @@ import io.qameta.allure.Attachment;
 import test.BaseTest;
 
 public class AllureAttachment {
-
+	public Data data;
 	public WebDriver driver;
+	
+	public String gridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
+		return data.getGridURL();
+	}
 
 	@Attachment(value = "{0}", type = "text/plain")
 	public static String addTextAttachment(String message) {
@@ -36,11 +44,11 @@ public class AllureAttachment {
 	}
 
 	@Attachment(value = "video", type = "video/mp4", fileExtension = ".mp4")
-	public static byte[] attachVideo(String sessionId) {
+	public byte[] attachVideo(String sessionId, ITestContext context) {
 		try {
 			File mp4 = new File(System.getProperty("java.io.tmpdir") + "temp.mp4");
 			mp4.deleteOnExit();
-			FileUtils.copyURLToFile(getVideoUrl(sessionId), mp4);
+			FileUtils.copyURLToFile(getVideoUrl(sessionId, context), mp4);
 			return Files.toByteArray(mp4);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,14 +56,14 @@ public class AllureAttachment {
 		return new byte[0];
 	}
 
-	public URL getVideoUrl(ITestResult testResult) {
-		return getVideoUrl(getSessionId(testResult));
+	public URL getVideoUrl(ITestResult testResult, ITestContext context) {
+		return getVideoUrl(getSessionId(testResult, context), context);
 	}
 
-	public static URL getVideoUrl(String sessionId) {
+	public URL getVideoUrl(String sessionId, ITestContext context) {
 		URL url = null;
 		try {
-			url = new URL(selenoidUrl + "/video/" + sessionId + ".mp4");
+			url = new URL(gridURL(context) + "/video/" + sessionId + ".mp4");
 		} catch (Exception e) {
 			System.out.println("getVideoUrl");
 			e.printStackTrace();
@@ -63,11 +71,10 @@ public class AllureAttachment {
 		return url;
 	}
 
-	private static String selenoidUrl = "http://127.0.0.1:4444";
 
-	public static void attachAllureVideo(String sessionId) {
+	public void attachAllureVideo(String sessionId, ITestContext context) {
 		try {
-			URL videoUrl = new URL(selenoidUrl + "/video/" + sessionId + ".mp4");
+			URL videoUrl = new URL(gridURL(context) + "/video/" + sessionId + ".mp4");
 			InputStream is = getSelenoidVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
 			deleteSelenoidVideo(videoUrl);
@@ -117,7 +124,7 @@ public class AllureAttachment {
 		}
 	}
 
-	public String getSessionId(ITestResult testResult) {
+	public String getSessionId(ITestResult testResult, ITestContext context) {
 		Object currentClass = testResult.getInstance();
 		return ((RemoteWebDriver)((BaseTest) currentClass).getDriver()).getSessionId().toString();
 	}

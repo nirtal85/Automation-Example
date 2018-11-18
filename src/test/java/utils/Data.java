@@ -20,6 +20,9 @@ public class Data {
 	@Getter
 	private String loginError;
 
+	@Getter
+	private String gridURL;
+
 	@JsonProperty("errors")
 	private void unpackNested(Map<String, Object> errors) {
 		this.loginError = (String) errors.get("invalidLogin");

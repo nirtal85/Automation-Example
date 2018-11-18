@@ -1,13 +1,17 @@
 package driver;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public abstract class DriverManager {
 	protected WebDriver driver;
 
-	protected abstract void createDriver() throws MalformedURLException;
+	protected abstract void createDriver(ITestContext context) throws JsonParseException, JsonMappingException, IOException;
 
 	public void quitDriver() {
 		if (driver != null) {
@@ -16,9 +20,9 @@ public abstract class DriverManager {
 		}
 	}
 
-	public WebDriver getDriver() throws MalformedURLException {
+	public WebDriver getDriver(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		if (driver == null) {
-			createDriver();
+			createDriver(context);
 		}
 		return driver;
 	}
