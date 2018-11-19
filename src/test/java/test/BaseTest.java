@@ -10,15 +10,15 @@ import org.testng.annotations.Parameters;
 import driver.DriverManager;
 import driver.DriverManagerFactory;
 import driver.DriverType;
+import pages.LoginPage;
 import utils.AllureAttachment;
 import utils.Data;
 
 public class BaseTest {
 	public WebDriver driver;
-	DriverManager driverManager;
 	public Data data;
-	String sessionId;
-	AllureAttachment allureAttachment;
+	public LoginPage loginPage;
+	DriverManager driverManager;
 
 	@Parameters({ "data-file" })
 	@BeforeClass
@@ -31,24 +31,23 @@ public class BaseTest {
 	public void beforeMethod(String baseUrl, ITestContext context) throws Exception {
 		driverManager = DriverManagerFactory.getManager(DriverType.CHROME);
 		driver = driverManager.getDriver(context);
+		loginPage = new LoginPage(driver);
 		driver.navigate().to(baseUrl);
 	}
 
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, ITestContext context) {
 		if ("true".equals(System.getProperty("enableVideo"))) {
-			allureAttachment = new AllureAttachment();
-			sessionId = allureAttachment.getSessionId(testResult, context);
-		}
-		
-		driverManager.quitDriver();
-		if ("true".equals(System.getProperty("enableVideo"))) {
+			AllureAttachment allureAttachment = new AllureAttachment();
+			String sessionId = allureAttachment.getSessionId(testResult, context);
+			driverManager.quitDriver();
 			allureAttachment.attachAllureVideo(sessionId, context);
+		} else {
+			driverManager.quitDriver();
 		}
 	}
 
 	public WebDriver getDriver() {
 		return driver;
 	}
-
 }

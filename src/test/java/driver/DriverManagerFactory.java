@@ -3,7 +3,6 @@ package driver;
 public class DriverManagerFactory {
 
 	public static DriverManager getManager(DriverType type) {
-
 		DriverManager driverManager;
 
 		switch (type) {
