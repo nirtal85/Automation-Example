@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import domain.User;
+import domain.User.UserBuilder;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
@@ -21,7 +22,9 @@ public class LoginTest extends BaseTest {
 	@Description("Login with wrong username and wrong password - expect error")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true, dataProvider = "users", dataProviderClass = DataProviders.class, invocationCount = 10)
 	public void invalidLogin(String email, String password) throws Exception {
-		User invalidUser = new User.Builder().setName(email).setPassword(password).create();
+		User invalidUser = new UserBuilder().with(userBuilder -> {
+			userBuilder.setName(email).setPassword(password);
+		}).createUser();
 		loginPage.loginAs(invalidUser);
 		assertThat(loginPage.getErrorMsg()).contains(data.getLoginError());
 	}
@@ -32,7 +35,9 @@ public class LoginTest extends BaseTest {
 	@Description("Login with valid user")
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
-		User validUser = new User.Builder().setName(data.getName()).setPassword(data.getPassword()).create();
+		User validUser = new UserBuilder().with(userBuilder -> {
+			userBuilder.setName(data.getName()).setPassword(data.getPassword());
+		}).createUser();
 		loginPage.loginAs(validUser);
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + "/secure");
 	}

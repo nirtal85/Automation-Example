@@ -1,12 +1,10 @@
 package utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -16,8 +14,6 @@ import org.testng.ITestResult;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.google.common.io.Files;
-
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import test.BaseTest;
@@ -41,23 +37,6 @@ public class AllureAttachment {
 		Object currentClass = testResult.getInstance();
 		driver = ((BaseTest) currentClass).getDriver();
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-	}
-
-	@Attachment(value = "video", type = "video/mp4", fileExtension = ".mp4")
-	public byte[] attachVideo(String sessionId, ITestContext context) {
-		try {
-			File mp4 = new File(System.getProperty("java.io.tmpdir") + "temp.mp4");
-			mp4.deleteOnExit();
-			FileUtils.copyURLToFile(getVideoUrl(sessionId, context), mp4);
-			return Files.toByteArray(mp4);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new byte[0];
-	}
-
-	public URL getVideoUrl(ITestResult testResult, ITestContext context) {
-		return getVideoUrl(getSessionId(testResult, context), context);
 	}
 
 	public URL getVideoUrl(String sessionId, ITestContext context) {
