@@ -124,7 +124,7 @@ public class AllureAttachment {
 		}
 	}
 
-	public String getSessionId(ITestResult testResult, ITestContext context) {
+	public synchronized String getSessionId(ITestResult testResult, ITestContext context) {
 		Object currentClass = testResult.getInstance();
 		return ((RemoteWebDriver)((BaseTest) currentClass).getDriver()).getSessionId().toString();
 	}

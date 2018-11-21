@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="sanity" parallel="none" verbose="10">
+<suite name="Sanity" parallel="tests" thread-count="5"
+	verbose="10">
 	<listeners>
 		<listener class-name="utils.BaseListener"></listener>
 	</listeners>
 	<parameter name="baseUrl"
-		value="http://the-internet.herokuapp.com/login" />
+		value="https://the-internet.herokuapp.com/login" />
 	<parameter name="data-file"
 		value="src/test/resources/data.json" />
-	<test name="login">
+	<test name="Chrome">
+		<parameter name="driverType" value="CHROME" />
 		<packages>
 			<package name="test"></package>
 		</packages>
-	</test> <!-- Test -->
-</suite> <!-- Suite -->
+	</test>
+	<test name="Firefox">
+		<parameter name="driverType" value="FIREFOX" />
+		<packages>
+			<package name="test"></package>
+		</packages>
+	</test>
+</suite>
 
 

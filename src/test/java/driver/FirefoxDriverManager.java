@@ -2,8 +2,6 @@ package driver;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
@@ -25,10 +23,9 @@ public class FirefoxDriverManager extends DriverManager {
 		capabilities.setCapability("enableVNC", true);
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			capabilities.setCapability("enableVideo", true);
+			capabilities.setCapability("videoFrameRate", 24);
 		}
 		driver = new RemoteWebDriver(URI.create(data.getGridURL()+"/wd/hub").toURL(), capabilities);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
 	}
 
 }

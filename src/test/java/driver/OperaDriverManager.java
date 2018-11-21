@@ -2,8 +2,6 @@ package driver;
 
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
@@ -21,10 +19,8 @@ public class OperaDriverManager extends DriverManager {
 		capabilities.setCapability("enableVNC", true);
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			capabilities.setCapability("enableVideo", true);
+			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver = new RemoteWebDriver(URI.create(data.getGridURL()+"/wd/hub").toURL(), capabilities);
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+		driver = new RemoteWebDriver(URI.create(data.getGridURL() + "/wd/hub").toURL(), capabilities);
 	}
-
 }

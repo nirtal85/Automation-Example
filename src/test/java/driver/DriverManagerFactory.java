@@ -12,8 +12,11 @@ public class DriverManagerFactory {
 		case FIREFOX:
 			driverManager = new FirefoxDriverManager();
 			break;
-		default:
+		case OPERA:
 			driverManager = new OperaDriverManager();
+			break;
+		default:
+			driverManager = new ChromeDriverManager();
 			break;
 		}
 		return driverManager;
