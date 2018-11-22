@@ -1,18 +1,18 @@
 package driver;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URI;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 
-import utils.Data;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class OperaDriverManager extends DriverManager {
-	public Data data;
 
 	@Override
-	protected void createDriver(ITestContext context) throws MalformedURLException {
+	protected void createDriver(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("opera");
 		capabilities.setVersion("55.0");
@@ -21,6 +21,6 @@ public class OperaDriverManager extends DriverManager {
 			capabilities.setCapability("enableVideo", true);
 			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver = new RemoteWebDriver(URI.create(data.getGridURL() + "/wd/hub").toURL(), capabilities);
+		driver = new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities);
 	}
 }

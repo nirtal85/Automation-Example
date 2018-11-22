@@ -8,12 +8,12 @@ import java.net.URL;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import test.BaseTest;
@@ -21,7 +21,7 @@ import test.BaseTest;
 public class AllureAttachment {
 	public Data data;
 	public WebDriver driver;
-	
+
 	public String gridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
 		return data.getGridURL();
@@ -38,18 +38,6 @@ public class AllureAttachment {
 		driver = ((BaseTest) currentClass).getDriver();
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
-
-	public URL getVideoUrl(String sessionId, ITestContext context) {
-		URL url = null;
-		try {
-			url = new URL(gridURL(context) + "/video/" + sessionId + ".mp4");
-		} catch (Exception e) {
-			System.out.println("getVideoUrl");
-			e.printStackTrace();
-		}
-		return url;
-	}
-
 
 	public void attachAllureVideo(String sessionId, ITestContext context) {
 		try {
@@ -101,10 +89,5 @@ public class AllureAttachment {
 			System.out.println("deleteSelenoidVideo");
 			e.printStackTrace();
 		}
-	}
-
-	public synchronized String getSessionId(ITestResult testResult, ITestContext context) {
-		Object currentClass = testResult.getInstance();
-		return ((RemoteWebDriver)((BaseTest) currentClass).getDriver()).getSessionId().toString();
 	}
 }

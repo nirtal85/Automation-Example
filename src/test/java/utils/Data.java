@@ -16,16 +16,14 @@ public class Data {
 	private String name;
 	@Getter
 	private String password;
-
 	@Getter
 	private String loginError;
-
 	@Getter
 	private String gridURL;
 
 	@JsonProperty("errors")
 	private void unpackNested(Map<String, Object> errors) {
-		this.loginError = (String) errors.get("invalidLogin");
+		loginError = (String) errors.get("invalidLogin");
 	}
 
 	public static Data get(String filename) throws JsonParseException, JsonMappingException, IOException {

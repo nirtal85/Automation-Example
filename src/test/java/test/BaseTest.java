@@ -31,7 +31,8 @@ public class BaseTest {
 
 	@Parameters({ "baseUrl", "driverType" })
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context) throws Exception {
+	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context)
+			throws Exception {
 		driverManager = DriverManagerFactory.getManager(driverType);
 		driver = driverManager.getDriver(context);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -43,7 +44,7 @@ public class BaseTest {
 	public void afterMethod(ITestResult testResult, ITestContext context) {
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			AllureAttachment allureAttachment = new AllureAttachment();
-			String sessionId = allureAttachment.getSessionId(testResult, context);
+			String sessionId = driverManager.getSessionId(testResult, context);
 			driverManager.quitDriver();
 			allureAttachment.attachAllureVideo(sessionId, context);
 		} else {

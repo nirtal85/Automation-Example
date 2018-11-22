@@ -12,14 +12,11 @@ import org.testng.ITestContext;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import utils.Data;
 
 public class ChromeDriverManager extends DriverManager {
-	public Data data;
 
 	@Override
 	protected void createDriver(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
-		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
 		capabilities.setVersion("70.0");
@@ -29,7 +26,7 @@ public class ChromeDriverManager extends DriverManager {
 			capabilities.setCapability("enableVideo", true);
 			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver = new RemoteWebDriver(URI.create(data.getGridURL() + "/wd/hub").toURL(), capabilities);
+		driver = new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities);
 	}
 
 	public static ChromeOptions getChromeOptions() {
