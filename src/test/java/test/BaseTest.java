@@ -1,15 +1,21 @@
 package test;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import driver.DriverManager;
 import driver.DriverManagerFactory;
 import driver.DriverType;
@@ -31,11 +37,11 @@ public class BaseTest {
 
 	@Parameters({ "baseUrl", "driverType" })
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context, ITestResult result)
-			throws Exception {
+	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context,
+			ITestResult result) throws Exception {
 		driverManager = DriverManagerFactory.getManager(driverType);
 		driver = driverManager.getDriver(context, result);
-        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		loginPage = new LoginPage(driver);
 		driver.navigate().to(baseUrl);
 	}
@@ -50,6 +56,11 @@ public class BaseTest {
 		} else {
 			driverManager.quitDriver();
 		}
+	}
+
+	@AfterSuite
+	public void afterSuite(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+		AllureAttachment.CleanSelenoidVideos(context);
 	}
 
 	public WebDriver getDriver() {

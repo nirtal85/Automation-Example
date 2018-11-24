@@ -2,14 +2,22 @@ package utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.jsoup.Jsoup;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import driver.DriverManager;
 import io.qameta.allure.Allure;
@@ -18,6 +26,7 @@ import test.BaseTest;
 
 public class AllureAttachment {
 	public WebDriver driver;
+	static String videoURL;
 
 	@Attachment(value = "{0}", type = "text/plain")
 	public static String addTextAttachment(String message) {
@@ -36,7 +45,7 @@ public class AllureAttachment {
 			URL videoUrl = new URL(DriverManager.getGridURL(context) + "/video/" + sessionId + ".mp4");
 			InputStream is = getSelenoidVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
-			deleteSelenoidVideo(videoUrl);
+//			deleteSelenoidVideo(videoUrl);
 		} catch (Exception e) {
 			System.out.println("attachAllureVideo");
 			e.printStackTrace();
@@ -69,17 +78,20 @@ public class AllureAttachment {
 		return null;
 	}
 
-	public static void deleteSelenoidVideo(URL url) {
-		try {
-			HttpURLConnection deleteConn = (HttpURLConnection) url.openConnection();
-			deleteConn.setDoOutput(true);
-			deleteConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			deleteConn.setRequestMethod("DELETE");
-			deleteConn.connect();
-			deleteConn.disconnect();
-		} catch (IOException e) {
-			System.out.println("deleteSelenoidVideo");
-			e.printStackTrace();
-		}
+	public static void CleanSelenoidVideos(ITestContext context)
+			throws JsonParseException, JsonMappingException, IOException {
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		List<String> videos = Arrays.asList(
+				Jsoup.connect(DriverManager.getGridURL(context) + "/video/").get().body().text().split("\\r?\\n"));
+		videos.forEach(video -> {
+			try {
+				videoURL = DriverManager.getGridURL(context) + "/video/" + video;
+				HttpDelete httpDelete = new HttpDelete(videoURL);
+				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
+				System.out.println(httpClient.execute(httpDelete).getStatusLine().getStatusCode());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }
