@@ -15,9 +15,9 @@ import utils.Data;
 
 public abstract class DriverManager {
 	protected WebDriver driver;
-	public Data data;
+	public static Data data;
 
-	protected abstract void createDriver(ITestContext context)
+	protected abstract void createDriver(ITestContext context, ITestResult result)
 			throws JsonParseException, JsonMappingException, IOException;
 
 	public void quitDriver() {
@@ -27,7 +27,7 @@ public abstract class DriverManager {
 		}
 	}
 
-	public String getGridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+	public static String getGridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
 		return data.getGridURL();
 	}
@@ -37,9 +37,10 @@ public abstract class DriverManager {
 		return ((RemoteWebDriver) ((BaseTest) currentClass).getDriver()).getSessionId().toString();
 	}
 
-	public WebDriver getDriver(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+	public WebDriver getDriver(ITestContext context, ITestResult result)
+			throws JsonParseException, JsonMappingException, IOException {
 		if (driver == null) {
-			createDriver(context);
+			createDriver(context, result);
 		}
 		return driver;
 	}

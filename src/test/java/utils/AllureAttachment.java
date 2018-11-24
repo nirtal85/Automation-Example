@@ -11,21 +11,13 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
+import driver.DriverManager;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import test.BaseTest;
 
 public class AllureAttachment {
-	public Data data;
 	public WebDriver driver;
-
-	public String gridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
-		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
-		return data.getGridURL();
-	}
 
 	@Attachment(value = "{0}", type = "text/plain")
 	public static String addTextAttachment(String message) {
@@ -41,7 +33,7 @@ public class AllureAttachment {
 
 	public void attachAllureVideo(String sessionId, ITestContext context) {
 		try {
-			URL videoUrl = new URL(gridURL(context) + "/video/" + sessionId + ".mp4");
+			URL videoUrl = new URL(DriverManager.getGridURL(context) + "/video/" + sessionId + ".mp4");
 			InputStream is = getSelenoidVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
 			deleteSelenoidVideo(videoUrl);

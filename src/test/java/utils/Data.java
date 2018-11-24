@@ -23,7 +23,7 @@ public class Data {
 
 	@JsonProperty("errors")
 	private void unpackNested(Map<String, Object> errors) {
-		loginError = (String) errors.get("invalidLogin");
+		this.loginError = (String) errors.get("invalidLogin");
 	}
 
 	public static Data get(String filename) throws JsonParseException, JsonMappingException, IOException {

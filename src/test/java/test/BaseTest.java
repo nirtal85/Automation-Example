@@ -31,11 +31,11 @@ public class BaseTest {
 
 	@Parameters({ "baseUrl", "driverType" })
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context)
+	public void beforeMethod(String baseUrl, @Optional("CHROME") DriverType driverType, ITestContext context, ITestResult result)
 			throws Exception {
 		driverManager = DriverManagerFactory.getManager(driverType);
-		driver = driverManager.getDriver(context);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver = driverManager.getDriver(context, result);
+        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
 		loginPage = new LoginPage(driver);
 		driver.navigate().to(baseUrl);
 	}
