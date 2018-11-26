@@ -28,7 +28,7 @@ public class ChromeDriverManager extends DriverManager {
 			capabilities.setCapability("enableVideo", true);
 			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver = new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities);
+		driver.set( new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities));
 	}
 
 	public static ChromeOptions getChromeOptions() {

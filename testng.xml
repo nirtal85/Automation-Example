@@ -9,13 +9,13 @@
 		value="https://the-internet.herokuapp.com/login" />
 	<parameter name="data-file"
 		value="src/test/resources/data.json" />
-	<test name="Chrome">
+	<test name="Chrome" thread-count="5" parallel="methods">
 		<parameter name="driverType" value="CHROME" />
 		<packages>
 			<package name="test"></package>
 		</packages>
 	</test>
-	<test name="Firefox">
+	<test name="Firefox" thread-count="5" parallel="methods">
 		<parameter name="driverType" value="FIREFOX" />
 		<packages>
 			<package name="test"></package>

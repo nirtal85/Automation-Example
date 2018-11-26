@@ -52,7 +52,7 @@ public class BaseTest {
 			AllureAttachment allureAttachment = new AllureAttachment();
 			String sessionId = driverManager.getSessionId(testResult, context);
 			driverManager.quitDriver();
-			allureAttachment.attachAllureVideo(sessionId, context);
+			allureAttachment.attachVideo(sessionId, context);
 		} else {
 			driverManager.quitDriver();
 		}

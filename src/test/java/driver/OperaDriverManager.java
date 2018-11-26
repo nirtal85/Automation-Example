@@ -13,7 +13,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 public class OperaDriverManager extends DriverManager {
 
 	@Override
-	protected void createDriver(ITestContext context, ITestResult result) throws JsonParseException, JsonMappingException, IOException {
+	protected void createDriver(ITestContext context, ITestResult result)
+			throws JsonParseException, JsonMappingException, IOException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("opera");
 		capabilities.setVersion("55.0");
@@ -24,6 +25,6 @@ public class OperaDriverManager extends DriverManager {
 			capabilities.setCapability("enableVideo", true);
 			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver = new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities);
+		driver.set(new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities));
 	}
 }

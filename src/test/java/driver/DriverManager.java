@@ -14,16 +14,16 @@ import test.BaseTest;
 import utils.Data;
 
 public abstract class DriverManager {
-	protected WebDriver driver;
+	protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 	public static Data data;
 
 	protected abstract void createDriver(ITestContext context, ITestResult result)
 			throws JsonParseException, JsonMappingException, IOException;
 
 	public void quitDriver() {
-		if (driver != null) {
-			driver.quit();
-			driver = null;
+		if (driver.get() != null) {
+			driver.get().quit();
+			driver.set(null);
 		}
 	}
 
@@ -39,10 +39,10 @@ public abstract class DriverManager {
 
 	public WebDriver getDriver(ITestContext context, ITestResult result)
 			throws JsonParseException, JsonMappingException, IOException {
-		if (driver == null) {
+		if (driver.get() == null) {
 			createDriver(context, result);
 		}
-		return driver;
+		return driver.get();
 	}
 
 }

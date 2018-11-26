@@ -40,26 +40,24 @@ public class AllureAttachment {
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
 
-	public void attachAllureVideo(String sessionId, ITestContext context) {
+	public void attachVideo(String sessionId, ITestContext context) {
 		try {
 			URL videoUrl = new URL(DriverManager.getGridURL(context) + "/video/" + sessionId + ".mp4");
-			InputStream is = getSelenoidVideo(videoUrl);
+			InputStream is = getVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
-//			deleteSelenoidVideo(videoUrl);
 		} catch (Exception e) {
 			System.out.println("attachAllureVideo");
 			e.printStackTrace();
 		}
 	}
 
-	public static InputStream getSelenoidVideo(URL url) {
+	public static InputStream getVideo(URL url) {
 		int lastSize = 0;
 		int exit = 1;
 		for (int i = 0; i < 20; i++) {
 			try {
 				int size = Integer.parseInt(url.openConnection().getHeaderField("Content-Length"));
-				System.out.println("Content-Length: " + size);
-				System.out.println(i);
+				System.out.println(i + ") Content-Length: " + size);
 				if (size > lastSize) {
 					lastSize = size;
 					Thread.sleep(2000);
@@ -81,11 +79,11 @@ public class AllureAttachment {
 	public static void CleanSelenoidVideos(ITestContext context)
 			throws JsonParseException, JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		List<String> videos = Arrays.asList(
-				Jsoup.connect(DriverManager.getGridURL(context) + "/video/").get().body().text().split("\\r?\\n"));
+		String videoPath = DriverManager.getGridURL(context) + "/video/";
+		List<String> videos = Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n"));
 		videos.forEach(video -> {
 			try {
-				videoURL = DriverManager.getGridURL(context) + "/video/" + video;
+				videoURL = videoPath + video;
 				HttpDelete httpDelete = new HttpDelete(videoURL);
 				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
 				System.out.println(httpClient.execute(httpDelete).getStatusLine().getStatusCode());
