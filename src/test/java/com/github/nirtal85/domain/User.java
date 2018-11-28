@@ -1,5 +1,4 @@
-
-package domain;
+package com.github.nirtal85.domain;
 
 import java.util.function.Consumer;
 

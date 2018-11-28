@@ -3,12 +3,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>testproject</groupId>
-	<artifactId>testproject</artifactId>
+	<groupId>com.github.nirtal85</groupId>
+	<artifactId>Automation-Example</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>testproject</name>
 	<url>https://github.com/nirtal85/Automation-Example</url>
+	<developers>
+		<developer>
+			<id>nir</id>
+			<name>Nir Tal</name>
+			<email>nirt236@gmail.com</email>
+			<url>https://github.com/nirtal85/</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git://github.com/nirtal85/Automation-Example.git</connection>
+		<developerConnection>
+            scm:git:ssh://github.com/nirtal85/Automation-Example.git
+        </developerConnection>
+		<url>https://github.com/nirtal85/Automation-Example</url>
+	</scm>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>

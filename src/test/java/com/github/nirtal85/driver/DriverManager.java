@@ -1,4 +1,4 @@
-package driver;
+package com.github.nirtal85.driver;
 
 import java.io.IOException;
 
@@ -9,9 +9,8 @@ import org.testng.ITestResult;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
-import test.BaseTest;
-import utils.Data;
+import com.github.nirtal85.test.BaseTest;
+import com.github.nirtal85.utils.Data;
 
 public abstract class DriverManager {
 	protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
@@ -23,7 +22,7 @@ public abstract class DriverManager {
 	public void quitDriver() {
 		if (driver.get() != null) {
 			driver.get().quit();
-			driver.set(null);
+			driver.remove();
 		}
 	}
 
@@ -32,7 +31,7 @@ public abstract class DriverManager {
 		return data.getGridURL();
 	}
 
-	public synchronized String getSessionId(ITestResult testResult, ITestContext context) {
+	public String getSessionId(ITestResult testResult, ITestContext context) {
 		Object currentClass = testResult.getInstance();
 		return ((RemoteWebDriver) ((BaseTest) currentClass).getDriver()).getSessionId().toString();
 	}

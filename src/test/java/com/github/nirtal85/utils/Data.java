@@ -1,4 +1,4 @@
-package utils;
+package com.github.nirtal85.utils;
 
 import java.io.File;
 import java.io.IOException;

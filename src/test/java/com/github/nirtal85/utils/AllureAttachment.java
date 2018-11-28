@@ -1,4 +1,4 @@
-package utils;
+package com.github.nirtal85.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,11 +18,11 @@ import org.testng.ITestResult;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.github.nirtal85.driver.DriverManager;
+import com.github.nirtal85.test.BaseTest;
 
-import driver.DriverManager;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import test.BaseTest;
 
 public class AllureAttachment {
 	public WebDriver driver;
@@ -40,7 +40,7 @@ public class AllureAttachment {
 		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
 
-	public void attachVideo(String sessionId, ITestContext context) {
+	public static void attachVideo(String sessionId, ITestContext context) {
 		try {
 			URL videoUrl = new URL(DriverManager.getGridURL(context) + "/video/" + sessionId + ".mp4");
 			InputStream is = getVideo(videoUrl);
@@ -76,7 +76,7 @@ public class AllureAttachment {
 		return null;
 	}
 
-	public static void CleanSelenoidVideos(ITestContext context)
+	public static void deleteVideos(ITestContext context)
 			throws JsonParseException, JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String videoPath = DriverManager.getGridURL(context) + "/video/";

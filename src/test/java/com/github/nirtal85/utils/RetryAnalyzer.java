@@ -1,4 +1,4 @@
-package utils;
+package com.github.nirtal85.utils;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

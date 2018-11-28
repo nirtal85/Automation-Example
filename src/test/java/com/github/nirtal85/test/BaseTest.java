@@ -1,4 +1,4 @@
-package test;
+package com.github.nirtal85.test;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -15,13 +15,14 @@ import org.testng.annotations.Parameters;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.github.nirtal85.driver.DriverManager;
+import com.github.nirtal85.driver.DriverManagerFactory;
+import com.github.nirtal85.driver.DriverType;
 
-import driver.DriverManager;
-import driver.DriverManagerFactory;
-import driver.DriverType;
-import pages.LoginPage;
-import utils.AllureAttachment;
-import utils.Data;
+import com.github.nirtal85.pages.LoginPage;
+import com.github.nirtal85.utils.Data;
+
+import com.github.nirtal85.utils.AllureAttachment;
 
 public class BaseTest {
 	public WebDriver driver;
@@ -49,10 +50,9 @@ public class BaseTest {
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod(ITestResult testResult, ITestContext context) {
 		if ("true".equals(System.getProperty("enableVideo"))) {
-			AllureAttachment allureAttachment = new AllureAttachment();
 			String sessionId = driverManager.getSessionId(testResult, context);
 			driverManager.quitDriver();
-			allureAttachment.attachVideo(sessionId, context);
+			AllureAttachment.attachVideo(sessionId, context);
 		} else {
 			driverManager.quitDriver();
 		}
@@ -60,7 +60,9 @@ public class BaseTest {
 
 	@AfterSuite
 	public void afterSuite(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
-		AllureAttachment.CleanSelenoidVideos(context);
+		if ("true".equals(System.getProperty("enableVideo"))) {
+			AllureAttachment.deleteVideos(context);
+		}
 	}
 
 	public WebDriver getDriver() {

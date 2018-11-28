@@ -1,4 +1,4 @@
-package driver;
+package com.github.nirtal85.driver;
 
 import java.io.IOException;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package utils;
+package com.github.nirtal85.utils;
 
 import java.lang.reflect.Method;
 
