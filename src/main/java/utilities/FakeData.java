@@ -1,4 +1,4 @@
-package com.github.nirtal85.utils;
+package utilities;
 
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;

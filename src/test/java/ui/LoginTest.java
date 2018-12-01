@@ -1,4 +1,4 @@
-package com.github.nirtal85.test;
+package ui;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -6,14 +6,14 @@ import org.testng.annotations.Guice;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.github.nirtal85.domain.User;
-import com.github.nirtal85.domain.User.UserBuilder;
-import com.github.nirtal85.utils.DataProviders;
+import domain.User;
+import domain.User.UserBuilder;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import utilities.DataProviders;
 
 @Guice
 @Epic("Login")
@@ -37,7 +37,7 @@ public class LoginTest extends BaseTest {
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
 		User validUser = new UserBuilder().with(userBuilder -> {
-			userBuilder.setName(data.getName()).setPassword(data.getPassword());
+			userBuilder.setName(data.getAdminName()).setPassword(data.getAdminPassword());
 		}).createUser();
 		loginPage.loginAs(validUser);
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + "/secure");

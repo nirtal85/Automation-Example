@@ -1,4 +1,4 @@
-package com.github.nirtal85.driver;
+package driver;
 
 public enum DriverType {
     CHROME,

@@ -1,5 +1,9 @@
-package com.github.nirtal85.driver;
+package driver;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DriverManagerFactory {
 
 	public static DriverManager getManager(DriverType type) {

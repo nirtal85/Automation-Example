@@ -1,7 +1,9 @@
-package com.github.nirtal85.driver;
+package driver;
 
 import java.io.IOException;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
@@ -9,12 +11,11 @@ import org.testng.ITestResult;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.github.nirtal85.test.BaseTest;
-import com.github.nirtal85.utils.Data;
+
+import utilities.Data;
 
 public abstract class DriverManager {
 	protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-	public static Data data;
 
 	protected abstract void createDriver(ITestContext context, ITestResult result)
 			throws JsonParseException, JsonMappingException, IOException;
@@ -25,15 +26,20 @@ public abstract class DriverManager {
 			driver.remove();
 		}
 	}
+	
+	public byte[] captureScreenshotAsBytes(ITestContext context, ITestResult result)
+			throws JsonParseException, JsonMappingException, IOException {
+		return ((TakesScreenshot) getDriver(context, result)).getScreenshotAs(OutputType.BYTES);
+	}
 
 	public static String getGridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
-		data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
+		final Data data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
 		return data.getGridURL();
 	}
 
-	public String getSessionId(ITestResult testResult, ITestContext context) {
-		Object currentClass = testResult.getInstance();
-		return ((RemoteWebDriver) ((BaseTest) currentClass).getDriver()).getSessionId().toString();
+	public String getSessionId(ITestContext context, ITestResult result)
+			throws JsonParseException, JsonMappingException, IOException {
+		return ((RemoteWebDriver) getDriver(context, result)).getSessionId().toString();
 	}
 
 	public WebDriver getDriver(ITestContext context, ITestResult result)
@@ -43,5 +49,4 @@ public abstract class DriverManager {
 		}
 		return driver.get();
 	}
-
 }

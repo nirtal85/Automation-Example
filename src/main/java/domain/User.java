@@ -1,11 +1,15 @@
-package com.github.nirtal85.domain;
+package domain;
 
 import java.util.function.Consumer;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-@Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
+@Data 
 public class User {
 	private String name;
 	private String password;
@@ -28,9 +32,5 @@ public class User {
 			user.password = this.password;
 			return user;
 		}
-	}
-
-	private User() {
-		// Constructor is now private.
 	}
 }

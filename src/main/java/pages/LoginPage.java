@@ -1,4 +1,4 @@
-package com.github.nirtal85.pages;
+package pages;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.github.nirtal85.domain.User;
+import domain.User;
 import io.qameta.allure.Step;
 
 public class LoginPage {

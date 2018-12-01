@@ -1,4 +1,4 @@
-package com.github.nirtal85.utils;
+package utilities;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,23 +10,24 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jsoup.Jsoup;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.github.nirtal85.driver.DriverManager;
-import com.github.nirtal85.test.BaseTest;
 
+import driver.DriverManager;
+import driver.DriverManagerFactory;
+import driver.DriverType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 
 public class AllureAttachment {
-	public WebDriver driver;
 	static String videoURL;
+	DriverManager driverManager;
+
+	public AllureAttachment(DriverType driverType) {
+		driverManager = DriverManagerFactory.getManager(driverType);
+	}
 
 	@Attachment(value = "{0}", type = "text/plain")
 	public static String addTextAttachment(String message) {
@@ -34,10 +35,9 @@ public class AllureAttachment {
 	}
 
 	@Attachment(value = "Page Screenshot", type = "image/png")
-	public byte[] addScreenshotAttachment(ITestResult testResult) {
-		Object currentClass = testResult.getInstance();
-		driver = ((BaseTest) currentClass).getDriver();
-		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	public byte[] addScreenshotAttachment(ITestContext context, ITestResult result)
+			throws JsonParseException, JsonMappingException, IOException {
+		return driverManager.captureScreenshotAsBytes(context, result);
 	}
 
 	public static void attachVideo(String sessionId, ITestContext context) {
@@ -76,8 +76,7 @@ public class AllureAttachment {
 		return null;
 	}
 
-	public static void deleteVideos(ITestContext context)
-			throws JsonParseException, JsonMappingException, IOException {
+	public static void deleteVideos(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String videoPath = DriverManager.getGridURL(context) + "/video/";
 		List<String> videos = Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n"));
