@@ -7,8 +7,9 @@
 	<artifactId>Automation-Example</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
-    <name>${project.groupId}:${project.artifactId}</name>
+	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/nirtal85/Automation-Example</url>
+	<description>Test automation example project.</description>
 	<developers>
 		<developer>
 			<id>nir</id>
@@ -24,6 +25,13 @@
 		<url>https://github.com/nirtal85/Automation-Example/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<scm>
 		<connection>scm:git:git://github.com/nirtal85/Automation-Example.git</connection>
 		<developerConnection>
