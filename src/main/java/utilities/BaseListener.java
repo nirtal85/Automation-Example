@@ -1,6 +1,5 @@
 package utilities;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.testng.IInvokedMethod;
@@ -32,13 +31,7 @@ public class BaseListener implements IInvokedMethodListener {
 			ITestContext context = result.getTestContext();
 			DriverType driverType = DriverType.valueOf(context.getCurrentXmlTest().getParameter("driverType"));
 			AllureAttachment allureAttachment = new AllureAttachment(driverType);
-
-			try {
-				allureAttachment.addScreenshotAttachment(context, result);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			allureAttachment.addScreenshotAttachment(context, result);
 		}
 	}
-
 }

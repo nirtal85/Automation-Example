@@ -1,20 +1,19 @@
 package driver;
 
-import java.io.IOException;
 import java.net.URI;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import lombok.SneakyThrows;
 
 
 public class FirefoxDriverManager extends DriverManager {
 
 	@Override
-	protected void createDriver(ITestContext context, ITestResult result) throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	protected void createDriver(ITestContext context, ITestResult result) {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("firefox");
 		capabilities.setVersion("63.0");

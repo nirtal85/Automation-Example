@@ -1,16 +1,14 @@
 package utilities;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 
 public class Data {
 	@Getter
@@ -34,7 +32,8 @@ public class Data {
 		this.adminPassword = adminUser.get("password");
 	}
 
-	public static Data get(String filename) throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public static Data get(String filename)  {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		return mapper.readValue(new File(filename), Data.class);

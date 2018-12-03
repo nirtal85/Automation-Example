@@ -12,14 +12,12 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.jsoup.Jsoup;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import driver.DriverManager;
 import driver.DriverManagerFactory;
 import driver.DriverType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
+import lombok.SneakyThrows;
 
 public class AllureAttachment {
 	static String videoURL;
@@ -35,8 +33,8 @@ public class AllureAttachment {
 	}
 
 	@Attachment(value = "Page Screenshot", type = "image/png")
-	public byte[] addScreenshotAttachment(ITestContext context, ITestResult result)
-			throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public byte[] addScreenshotAttachment(ITestContext context, ITestResult result) {
 		return driverManager.captureScreenshotAsBytes(context, result);
 	}
 
@@ -76,7 +74,8 @@ public class AllureAttachment {
 		return null;
 	}
 
-	public static void deleteVideos(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public static void deleteVideos(ITestContext context) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String videoPath = DriverManager.getGridURL(context) + "/video/";
 		List<String> videos = Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n"));

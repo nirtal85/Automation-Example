@@ -1,6 +1,5 @@
 package driver;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,13 +9,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import lombok.SneakyThrows;
 
 public class ChromeDriverManager extends DriverManager {
 
 	@Override
-	protected void createDriver(ITestContext context, ITestResult result) throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	protected void createDriver(ITestContext context, ITestResult result) {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
 		capabilities.setVersion("70.0");
@@ -28,7 +27,7 @@ public class ChromeDriverManager extends DriverManager {
 			capabilities.setCapability("enableVideo", true);
 			capabilities.setCapability("videoFrameRate", 24);
 		}
-		driver.set( new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities));
+		driver.set(new RemoteWebDriver(URI.create(getGridURL(context) + "/wd/hub").toURL(), capabilities));
 	}
 
 	public static ChromeOptions getChromeOptions() {

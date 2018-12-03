@@ -1,7 +1,5 @@
 package driver;
 
-import java.io.IOException;
-
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -9,16 +7,13 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
+import lombok.SneakyThrows;
 import utilities.Data;
 
 public abstract class DriverManager {
 	protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
 
-	protected abstract void createDriver(ITestContext context, ITestResult result)
-			throws JsonParseException, JsonMappingException, IOException;
+	protected abstract void createDriver(ITestContext context, ITestResult result);
 
 	public void quitDriver() {
 		if (driver.get() != null) {
@@ -26,24 +21,25 @@ public abstract class DriverManager {
 			driver.remove();
 		}
 	}
-	
-	public byte[] captureScreenshotAsBytes(ITestContext context, ITestResult result)
-			throws JsonParseException, JsonMappingException, IOException {
+
+	@SneakyThrows
+	public byte[] captureScreenshotAsBytes(ITestContext context, ITestResult result) {
 		return ((TakesScreenshot) getDriver(context, result)).getScreenshotAs(OutputType.BYTES);
 	}
 
-	public static String getGridURL(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public static String getGridURL(ITestContext context) {
 		final Data data = Data.get(context.getCurrentXmlTest().getParameter("data-file"));
 		return data.getGridURL();
 	}
 
-	public String getSessionId(ITestContext context, ITestResult result)
-			throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public String getSessionId(ITestContext context, ITestResult result) {
 		return ((RemoteWebDriver) getDriver(context, result)).getSessionId().toString();
 	}
 
-	public WebDriver getDriver(ITestContext context, ITestResult result)
-			throws JsonParseException, JsonMappingException, IOException {
+	@SneakyThrows
+	public WebDriver getDriver(ITestContext context, ITestResult result) {
 		if (driver.get() == null) {
 			createDriver(context, result);
 		}
