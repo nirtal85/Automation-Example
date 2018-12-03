@@ -22,7 +22,9 @@ import driver.DriverManagerFactory;
 import driver.DriverType;
 import utilities.Data;
 
-import utilities.AllureAttachment;
+import static utilities.AllureAttachment.deleteVideos;
+import static utilities.AllureAttachment.attachVideo;
+
 
 public class BaseTest {
 	public WebDriver driver;
@@ -52,7 +54,7 @@ public class BaseTest {
 		if ("true".equals(System.getProperty("enableVideo"))) {
 			String sessionId = driverManager.getSessionId(context, testResult);
 			driverManager.quitDriver();
-			AllureAttachment.attachVideo(sessionId, context);
+			attachVideo(sessionId, context);
 		} else {
 			driverManager.quitDriver();
 		}
@@ -61,7 +63,7 @@ public class BaseTest {
 	@AfterSuite
 	public void afterSuite(ITestContext context) throws JsonParseException, JsonMappingException, IOException {
 		if ("true".equals(System.getProperty("enableVideo"))) {
-			AllureAttachment.deleteVideos(context);
+			deleteVideos(context);
 		}
 	}
 }
