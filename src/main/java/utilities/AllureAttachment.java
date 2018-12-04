@@ -12,13 +12,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.jsoup.Jsoup;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+
 import driver.DriverManager;
 import driver.DriverManagerFactory;
 import driver.DriverType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class AllureAttachment {
 	static String videoURL;
 	DriverManager driverManager;
@@ -44,8 +47,7 @@ public class AllureAttachment {
 			InputStream is = getVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
 		} catch (Exception e) {
-			System.out.println("attachAllureVideo");
-			e.printStackTrace();
+			log.error("attachAllureVideo" + e.getMessage());
 		}
 	}
 
@@ -55,7 +57,7 @@ public class AllureAttachment {
 		for (int i = 0; i < 20; i++) {
 			try {
 				int size = Integer.parseInt(url.openConnection().getHeaderField("Content-Length"));
-				System.out.println(i + ") Content-Length: " + size);
+				log.info(i + ") Content-Length: " + size);
 				if (size > lastSize) {
 					lastSize = size;
 					Thread.sleep(2000);
@@ -67,8 +69,7 @@ public class AllureAttachment {
 					return url.openStream();
 				}
 			} catch (Exception e) {
-				System.out.println("getSelenoidVideo");
-				e.printStackTrace();
+				log.error("getSelenoidVideo" + e.getMessage());
 			}
 		}
 		return null;
@@ -84,9 +85,10 @@ public class AllureAttachment {
 				videoURL = videoPath + video;
 				HttpDelete httpDelete = new HttpDelete(videoURL);
 				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
-				System.out.println(httpClient.execute(httpDelete).getStatusLine().getStatusCode());
+				log.info("Video URL: " + video + " Delete request status is: "
+						+ Integer.toString(httpClient.execute(httpDelete).getStatusLine().getStatusCode()));
 			} catch (IOException e) {
-				e.printStackTrace();
+				log.error(e.getMessage());
 			}
 		});
 	}

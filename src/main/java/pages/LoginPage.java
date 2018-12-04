@@ -8,9 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import domain.User;
 import io.qameta.allure.Step;
+import lombok.NonNull;
 
 public class LoginPage {
-	public WebDriver driver;
+	protected WebDriver driver;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -25,13 +26,13 @@ public class LoginPage {
 
 	@FindBy(id = "flash")
 	private WebElement errorMsg;
-	
+
 	public String getErrorMsg() {
 		return errorMsg.getText();
 	}
 
 	@Step("Login with user {0}")
-	public LoginPage loginAs(User user) {
+	public LoginPage loginAs(@NonNull User user) {
 		userName.clear();
 		userPassword.clear();
 		userName.sendKeys(user.getName());
