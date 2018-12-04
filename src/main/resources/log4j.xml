@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="FILE" class="org.apache.log4j.FileAppender">
+		<param name="Append" value="false" />
+		<param name="maxFileSize" value="1MB" />
+		<param name="File" value="target/log/log.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p - %m%n" />
+		</layout>
+	</appender>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="FILE" />
+	</root>
+</log4j:configuration>
