@@ -41,13 +41,16 @@ public class AllureAttachment {
 		return driverManager.captureScreenshotAsBytes(context, result);
 	}
 
+	/**
+	 * attach video as an attachment to allure report
+	 */
 	public static void attachVideo(String sessionId, ITestContext context) {
 		try {
 			URL videoUrl = new URL(DriverManager.getGridURL(context) + "/video/" + sessionId + ".mp4");
 			InputStream is = getVideo(videoUrl);
 			Allure.addAttachment("Video", "video/mp4", is, "mp4");
 		} catch (Exception e) {
-			log.error("attachAllureVideo" + e.getMessage());
+			log.error("Attach allure video error: {}", e.getMessage());
 		}
 	}
 
@@ -57,7 +60,7 @@ public class AllureAttachment {
 		for (int i = 0; i < 20; i++) {
 			try {
 				int size = Integer.parseInt(url.openConnection().getHeaderField("Content-Length"));
-				log.info(i + ") Content-Length: " + size);
+				log.info("Iteration count is: {}, content-Length is: {}", i, size);
 				if (size > lastSize) {
 					lastSize = size;
 					Thread.sleep(2000);
@@ -69,12 +72,15 @@ public class AllureAttachment {
 					return url.openStream();
 				}
 			} catch (Exception e) {
-				log.error("getSelenoidVideo" + e.getMessage());
+				log.error("Get selenoid video error: {}", e.getMessage());
 			}
 		}
 		return null;
 	}
 
+	/**
+	 * Deletes all vidoes from selenoid docker > http://{gridURL}:4444/video/
+	 */
 	@SneakyThrows
 	public static void deleteVideos(ITestContext context) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
@@ -85,8 +91,8 @@ public class AllureAttachment {
 				videoURL = videoPath + video;
 				HttpDelete httpDelete = new HttpDelete(videoURL);
 				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
-				log.info("Video URL: " + video + " Delete request status is: "
-						+ Integer.toString(httpClient.execute(httpDelete).getStatusLine().getStatusCode()));
+				log.info("Video URL:{}, Delete request status is:{}", video,
+						httpClient.execute(httpDelete).getStatusLine().getStatusCode());
 			} catch (IOException e) {
 				log.error(e.getMessage());
 			}

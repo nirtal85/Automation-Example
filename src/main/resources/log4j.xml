@@ -4,8 +4,8 @@
 	xmlns:log4j="http://jakarta.apache.org/log4j/">
 	<appender name="FILE" class="org.apache.log4j.FileAppender">
 		<param name="Append" value="false" />
-		<param name="maxFileSize" value="1MB" />
-		<param name="File" value="target/log/log.out" />
+		<param name="MaxFileSize" value="1MB" />
+		<param name="File" value="target/log/log.txt" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="conversionPattern"
 				value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p - %m%n" />
