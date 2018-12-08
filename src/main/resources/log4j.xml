@@ -2,10 +2,10 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration
 	xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<appender name="FILE" class="org.apache.log4j.FileAppender">
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
 		<param name="Append" value="false" />
-		<param name="MaxFileSize" value="1MB" />
-		<param name="File" value="target/log/log.txt" />
+		<param name="maxFileSize" value="1MB" />
+		<param name="File" value="target/log/log.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="conversionPattern"
 				value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p - %m%n" />

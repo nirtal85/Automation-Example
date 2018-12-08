@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -85,17 +84,17 @@ public class AllureAttachment {
 	public static void deleteVideos(ITestContext context) {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String videoPath = DriverManager.getGridURL(context) + "/video/";
-		List<String> videos = Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n"));
-		videos.forEach(video -> {
-			try {
-				videoURL = videoPath + video;
-				HttpDelete httpDelete = new HttpDelete(videoURL);
-				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
-				log.info("Video URL:{}, Delete request status is:{}", video,
-						httpClient.execute(httpDelete).getStatusLine().getStatusCode());
-			} catch (IOException e) {
-				log.error(e.getMessage());
-			}
-		});
+		Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n")).stream().parallel()
+				.forEach(video -> {
+					try {
+						videoURL = videoPath + video;
+						HttpDelete httpDelete = new HttpDelete(videoURL);
+						httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
+						log.info("Video URL:{}, Delete request status is:{}", video,
+								httpClient.execute(httpDelete).getStatusLine().getStatusCode());
+					} catch (IOException e) {
+						log.error(e.getMessage());
+					}
+				});
 	}
 }
