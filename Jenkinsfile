@@ -29,7 +29,7 @@ pipeline {
   }
   stage('Test') {
    steps {
-    withMaven(jdk: 'Local JDK', maven: 'Local Maven') {
+    withMaven(jdk: 'Local JDK', maven: 'Local Maven', options: [junitPublisher(disabled: true)]) {
      bat 'mvn clean install test -DsuiteXmlFile=testng.xml -DenableVideo=true'
     }
    }
@@ -46,7 +46,7 @@ pipeline {
   }
   failure {
    emailext(
-    attachmentsPattern: 'target/log/**',   
+    attachmentsPattern: 'target/log/**',
     body: "Something is wrong with ${env.BUILD_URL}",
     subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
     to: "${params.email}"
