@@ -87,10 +87,8 @@ public class AllureAttachment {
 		Arrays.asList(Jsoup.connect(videoPath).get().body().text().split("\\r?\\n")).forEach(video -> {
 			try {
 				videoURL = videoPath + video;
-				HttpDelete httpDelete = new HttpDelete(videoURL);
-				httpDelete.setHeader("Content-Type", "application/x-www-form-urlencoded");
 				log.info("Video URL:{}, Delete request status is:{}", video,
-						httpClient.execute(httpDelete).getStatusLine().getStatusCode());
+						httpClient.execute(new HttpDelete(videoURL)).getStatusLine().getStatusCode());
 			} catch (IOException e) {
 				log.error(e.getMessage());
 			}

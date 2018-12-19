@@ -21,7 +21,7 @@ public class BaseListener implements IInvokedMethodListener {
 		}
 		if (method.isAnnotationPresent(Issue.class)) {
 			throw new SkipException(
-					"Open Bug Number: " + method.getAnnotation(Issue.class).value() + " skipping this test");
+					String.format("Open bug number %s skipping this test", method.getAnnotation(Issue.class).value()));
 		}
 	}
 
