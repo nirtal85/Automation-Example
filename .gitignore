@@ -39,6 +39,7 @@ test-output/*
 allure-results/*
 allure-report/*
 video/*
+.allure
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
