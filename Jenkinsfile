@@ -30,7 +30,7 @@ pipeline {
   stage('Test') {
    steps {
     withMaven(jdk: 'Local JDK', maven: 'Local Maven', options: [junitPublisher(disabled: true)]) {
-     bat 'mvn clean install test -DsuiteXmlFile=testng.xml -DenableVideo=true'
+     bat 'mvn clean test -DsuiteXmlFile=testng.xml -DenableVideo=true'
     }
    }
   }
@@ -38,7 +38,7 @@ pipeline {
  post {
   always {
    allure includeProperties: false, jdk: '', results: [
-    [path: '/allure-results']
+    [path: 'target/allure-results']
    ]
   }
   success {

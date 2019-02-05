@@ -18,7 +18,7 @@ public class ChromeDriverManager extends DriverManager {
 	protected void createDriver(ITestContext context, ITestResult result) {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
-		capabilities.setVersion("71.0");
+		capabilities.setVersion("72.0");
 		capabilities.setCapability("screenResolution", "1280x1024x24");
 		capabilities.setCapability("name", result.getMethod().getMethodName());
 		capabilities.setCapability(ChromeOptions.CAPABILITY, getChromeOptions());

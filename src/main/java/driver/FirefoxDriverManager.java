@@ -17,7 +17,7 @@ public class FirefoxDriverManager extends DriverManager {
 	protected void createDriver(ITestContext context, ITestResult result) {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("firefox");
-		capabilities.setVersion("63.0");
+		capabilities.setVersion("65.0");
 		capabilities.setCapability(FirefoxDriver.PROFILE, getFirefoxProfile());
 		capabilities.setCapability("screenResolution", "1280x1024x24");
 		capabilities.setCapability("name", result.getMethod().getMethodName());
