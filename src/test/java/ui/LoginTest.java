@@ -17,6 +17,7 @@ import utilities.DataProviders;
 @Epic("Login")
 public class LoginTest extends BaseTest {
 
+	
 	@Severity(SeverityLevel.CRITICAL)
 	@Description("Login with wrong username and wrong password - expect error")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true, dataProvider = "users", dataProviderClass = DataProviders.class, invocationCount = 10)

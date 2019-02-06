@@ -3,7 +3,7 @@
 <suite name="Sanity" parallel="tests" thread-count="5"
 	verbose="10">
 	<listeners>
-		<listener class-name="utilities.BaseListener"></listener>
+		<listener class-name="utilities.ListenerClass"></listener>
 	</listeners>
 	<parameter name="baseUrl"
 		value="https://the-internet.herokuapp.com/login" />

@@ -44,6 +44,7 @@ public class BaseTest {
 			ITestResult result) throws Exception {
 		driverManager = DriverManagerFactory.getManager(driverType);
 		driver = driverManager.getDriver(context, result);
+		context.setAttribute("WebDriver", this.driver);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		loginPage = new LoginPage(driver);
 		driver.navigate().to(baseUrl);

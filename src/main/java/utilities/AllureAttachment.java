@@ -10,34 +10,22 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jsoup.Jsoup;
 import org.testng.ITestContext;
-import org.testng.ITestResult;
-
 import driver.DriverManager;
-import driver.DriverManagerFactory;
-import driver.DriverType;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AllureAttachment {
 	static String videoURL;
-	DriverManager driverManager;
-
-	public AllureAttachment(DriverType driverType) {
-		driverManager = DriverManagerFactory.getManager(driverType);
-	}
 
 	@Attachment(value = "{0}", type = "text/plain")
 	public static String addTextAttachment(String message) {
 		return message;
-	}
-
-	@Attachment(value = "Page Screenshot", type = "image/png")
-	@SneakyThrows
-	public byte[] addScreenshotAttachment(ITestContext context, ITestResult result) {
-		return driverManager.captureScreenshotAsBytes(context, result);
 	}
 
 	/**
