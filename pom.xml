@@ -112,6 +112,11 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.5.6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.automatedowl</groupId>
+			<artifactId>allure-environment-writer</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -163,31 +168,6 @@
 						<enableVideo>$(enableVideo)</enableVideo>
 					</systemPropertyVariables>
 				</configuration>
-			</plugin>
-			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/allure-results</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/test/resources</directory>
-									<includes>
-										<include>environment.xml</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

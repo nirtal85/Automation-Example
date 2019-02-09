@@ -14,11 +14,11 @@ import io.qameta.allure.SeverityLevel;
 import utilities.DataProviders;
 
 @Guice
+@Severity(SeverityLevel.CRITICAL)
 @Epic("Login")
 public class LoginTest extends BaseTest {
 
 	
-	@Severity(SeverityLevel.CRITICAL)
 	@Description("Login with wrong username and wrong password - expect error")
 	@Test(description = "Invalid Login", groups = "Sanity", enabled = true, dataProvider = "users", dataProviderClass = DataProviders.class, invocationCount = 10)
 	public void invalidLogin(String email, String password) throws Exception {
@@ -29,7 +29,6 @@ public class LoginTest extends BaseTest {
 
 //	@Issue("1")
 	@Parameters({ "baseUrl" })
-	@Severity(SeverityLevel.CRITICAL)
 	@Description("Login with valid user")
 	@Test(description = "valid Login", groups = "Sanity", enabled = true)
 	public void validlidLogin(String baseUrl) throws Exception {
@@ -40,7 +39,6 @@ public class LoginTest extends BaseTest {
 
 	// TODO: example for task scanner
 	@Parameters({ "baseUrl" })
-	@Severity(SeverityLevel.CRITICAL)
 	@Description("navigate directly to the secure page")
 	@Test(description = "unauthorized Login", groups = "Sanity", enabled = true)
 	public void unauthorizedLogin(String baseUrl) throws Exception {

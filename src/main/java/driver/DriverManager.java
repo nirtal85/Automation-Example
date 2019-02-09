@@ -1,7 +1,5 @@
 package driver;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
@@ -20,11 +18,6 @@ public abstract class DriverManager {
 			driver.get().quit();
 			driver.remove();
 		}
-	}
-
-	@SneakyThrows
-	public byte[] captureScreenshotAsBytes(ITestContext context, ITestResult result) {
-		return ((TakesScreenshot) getDriver(context, result)).getScreenshotAs(OutputType.BYTES);
 	}
 
 	@SneakyThrows
