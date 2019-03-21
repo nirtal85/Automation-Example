@@ -169,6 +169,12 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
+			<!-- https://mvnrepository.com/artifact/com.github.johnpoth/jshell-maven-plugin -->
+			<plugin>
+				<groupId>com.github.johnpoth</groupId>
+				<artifactId>jshell-maven-plugin</artifactId>
+				<version>1.1</version>
+			</plugin>
 		</plugins>
 	</build>
 </project>

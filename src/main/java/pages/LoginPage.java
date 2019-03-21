@@ -18,13 +18,13 @@ public class LoginPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(id = "username")
+	@FindBy(css = "#username")
 	private WebElement userName;
 
-	@FindBy(id = "password")
+	@FindBy(css = "#password")
 	private WebElement userPassword;
 
-	@FindBy(id = "flash")
+	@FindBy(css = "#flash")
 	private WebElement errorMsg;
 
 	public String getErrorMsg() {
